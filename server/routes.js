@@ -1,7 +1,7 @@
 var path = require('path');
 var qs = require('querystring');
 var express = require('express');
-var jwt    = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var request = require('request');
@@ -9,25 +9,26 @@ var config = require('../config');
 var User = mongoose.model('User');
 var userController = require('./controllers/UserController');
 var sockjs = require('sockjs');
+var nlpParser = require('./nlp/parser');
+var handler = require('./handlers/IntentHandler');
 
+module.exports = function (app) {
 
-module.exports = function(app){
-
-    app.get('/api/me', ensureAuthenticated, function(req, res) {
+    app.get('/api/me', ensureAuthenticated, function (req, res) {
         console.log(req.user);
-        User.findById(req.user._id, function(err, user){
+        User.findById(req.user._id, function (err, user) {
             res.send(user);
         });
     });
 
-    app.put('/api/me', ensureAuthenticated, function(req, res){
-        User.findById(req.user, function(err, user){
-            if(!user){
-                return res.status(400).send({ message: 'User not found' });
+    app.put('/api/me', ensureAuthenticated, function (req, res) {
+        User.findById(req.user, function (err, user) {
+            if (!user) {
+                return res.status(400).send({message: 'User not found'});
             }
             user.displayName = req.body.displayName || user.displayName;
             user.email = req.body.email || user.email;
-            user.save(function(err){
+            user.save(function (err) {
                 res.status(200).end();
             });
         });
@@ -41,9 +42,29 @@ module.exports = function(app){
 
     app.post('/auth/signup', userController.signup);
 
+    app.post('/parse', function (req, res) {
+        console.log("yo");
+        var text = req.body.text;
+        var userId = req.body.userId;
+        if (!text || text == "") {
+            res.status(400).send({
+                message: "No Text"
+            });
+        } else if (!userId) {
+            res.status(400).send({
+                message: "No User"
+            });
+        } else {
+            var intentWithSlots = nlpParser.parseIntent(userId, text, function(intentWithSlots){
+                var returnMsg = handler.handleIntent(intentWithSlots);
+                console.log(returnMsg);
+                res.status(200).send(returnMsg);
+            });
+
+        }
+    });
+
 };
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -85,11 +106,11 @@ function ensureAuthenticated(req, res, next) {
 ////////////////////////////////////////////////////////////////////////////////
 
 function createToken(req, user) {
-  var payload = {
-    iss: req.hostname,
-    sub: user._id,
-    iat: moment().unix(),
-    exp: moment().add(14, 'days').unix()
-  };
-  return jwt.encode(payload, config.TOKEN_SECRET);
+    var payload = {
+        iss: req.hostname,
+        sub: user._id,
+        iat: moment().unix(),
+        exp: moment().add(14, 'days').unix()
+    };
+    return jwt.encode(payload, config.TOKEN_SECRET);
 }

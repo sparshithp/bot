@@ -17,7 +17,7 @@ mongoose.connect(config.MONGO_URI);
 var app = express();
 
 // Express config
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 app.use(logger('dev'));
 app.use(cors());
 app.use(bodyParser.json());
