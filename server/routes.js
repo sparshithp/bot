@@ -56,9 +56,10 @@ module.exports = function (app) {
             });
         } else {
             var intentWithSlots = nlpParser.parseIntent(userId, text, function(intentWithSlots){
-                var returnMsg = handler.handleIntent(intentWithSlots);
-                console.log(returnMsg);
-                res.status(200).send(returnMsg);
+                var returnMsg = handler.handleIntent(intentWithSlots, function(returnMsg){
+                    console.log(returnMsg);
+                    res.status(200).send(returnMsg);
+                });
             });
 
         }

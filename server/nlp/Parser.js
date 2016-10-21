@@ -21,21 +21,25 @@ exports.parseIntent =function(userId, text, callback)
                 slots[key] = val;
             }
         }
-        var context = new Context();
-        if (intent == "input.unknown") {
-            context.userId = userId;
-            context.intent = intent;
-            context.slots = slots;
-            context.save(function (err) {
-                if (err) {
-                }
-            })
-        }
+
+
         var intentWithSlots = {
             intent: intent,
             slots: slots
         };
         callback(intentWithSlots);
+        var context = new Context();
+        if (intent != "input.unknown") {
+            context.userId = userId;
+            context.intent = intent;
+            context.slots = slots;
+            context.save(function (err) {
+                if (err) {
+                    console.log("error saving context");
+                }
+                console.log("saved");
+            })
+        }
     });
 
     request.on('error', function (error) {

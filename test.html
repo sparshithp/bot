@@ -1,0 +1,48 @@
+<html ng-app>
+<head>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+
+<script>
+    var sock = new SockJS('http://localhost:3000/chat');
+    
+    function ChatCtrl($scope) {
+        
+        $scope.messages = [];
+        
+        $scope.sendMessage = function() {
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwic2VsZWN0ZWQiOnt9LCJnZXR0ZXJzIjp7fSwid2FzUG9wdWxhdGVkIjpmYWxzZSwiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsiX192IjoiaW5pdCIsImZ1bGxOYW1lIjoiaW5pdCIsImVtYWlsIjoiaW5pdCIsInBhc3N3b3JkIjoiaW5pdCIsInBob25lIjoiaW5pdCIsImFkZHJlc3MiOiJpbml0IiwiY2l0eSI6ImluaXQiLCJ6aXBDb2RlIjoiaW5pdCIsImJhbGFuY2UiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiX192Ijp0cnVlLCJmdWxsTmFtZSI6dHJ1ZSwiZW1haWwiOnRydWUsInBhc3N3b3JkIjp0cnVlLCJwaG9uZSI6dHJ1ZSwiYWRkcmVzcyI6dHJ1ZSwiY2l0eSI6dHJ1ZSwiemlwQ29kZSI6dHJ1ZSwiYmFsYW5jZSI6dHJ1ZSwiX2lkIjp0cnVlfSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6e319LCJzdGF0ZU5hbWVzIjpbInJlcXVpcmUiLCJtb2RpZnkiLCJpbml0IiwiZGVmYXVsdCIsImlnbm9yZSJdfSwiZW1pdHRlciI6eyJkb21haW4iOm51bGwsIl9ldmVudHMiOnt9LCJfZXZlbnRzQ291bnQiOjAsIl9tYXhMaXN0ZW5lcnMiOjB9fSwiaXNOZXciOmZhbHNlLCJfZG9jIjp7Il9fdiI6MCwiZnVsbE5hbWUiOiJTcGFyc2hpdGggR293ZGEiLCJlbWFpbCI6InNwYXJzaC5wcm9AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAka0tDNmZIaWpQQk5JMUpFUlZGWTZ2Li8zWU1DQVlJLmRxUTlYOS5vZC5KeFhvWjVqSEM2V3kiLCJwaG9uZSI6Ijk0ODMwNjE1NTYiLCJhZGRyZXNzIjoiMTB0aCBDcm9zcywgQlRNIExheW91dCIsImNpdHkiOiJCYW5nYWxvcmUiLCJ6aXBDb2RlIjoiNTcwMDAxIiwiYmFsYW5jZSI6MCwiX2lkIjoiNTc3YjNhZWM3MjE3MzVhMjEyMzE4NWZmIn0sIl9wcmVzIjp7IiRfX29yaWdpbmFsX3NhdmUiOltudWxsLG51bGwsbnVsbF0sIiRfX29yaWdpbmFsX3ZhbGlkYXRlIjpbbnVsbF0sIiRfX29yaWdpbmFsX3JlbW92ZSI6W251bGxdfSwiX3Bvc3RzIjp7IiRfX29yaWdpbmFsX3NhdmUiOltdLCIkX19vcmlnaW5hbF92YWxpZGF0ZSI6W10sIiRfX29yaWdpbmFsX3JlbW92ZSI6W119LCJpYXQiOjE0NzY2NTk1NjYsImV4cCI6MTQ3Njc0NTk2Nn0.fJnJC2lo32sWha4z_zpAbMg9Y6D9BlkKzHG62Uirxak";
+            var req = {};
+            req = {
+                token : token,
+                message : $scope.messageText
+            };
+            var jsonReq = JSON.stringify(req)
+            sock.send(jsonReq);
+            $scope.messageText = "";
+        };
+
+        sock.onmessage = function(e) {
+            $scope.messages.push(e.data);
+            $scope.$apply();
+        };
+    }
+</script>
+
+</head>
+
+<body>
+
+<div ng-controller="ChatCtrl">
+    <ul>
+        <li ng-repeat="message in messages">{{message}}</li>
+    </ul>
+
+    <form ng-submit="sendMessage()">
+        <input type="text" ng-model="messageText" placeholder="Type your message here" />
+        <input type="submit" value="Send" />
+    </form
+</div>
+
+</body>
+</html>
