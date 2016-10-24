@@ -1,14 +1,10 @@
-var path = require('path');
-var qs = require('querystring');
-var express = require('express');
 var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var mongoose = require('mongoose');
-var request = require('request');
 var config = require('../config');
 var User = mongoose.model('User');
+var Restaurant = require('./models/restaurant');
 var userController = require('./controllers/UserController');
-var sockjs = require('sockjs');
 var nlpParser = require('./nlp/parser');
 var handler = require('./handlers/IntentHandler');
 
@@ -43,7 +39,6 @@ module.exports = function (app) {
     app.post('/auth/signup', userController.signup);
 
     app.post('/parse', function (req, res) {
-        console.log("yo");
         var text = req.body.text;
         var userId = req.body.userId;
         if (!text || text == "") {
@@ -63,6 +58,27 @@ module.exports = function (app) {
             });
 
         }
+    });
+
+    app.post('/restaurant/add',function(req, res){
+        var restaurantName = req.body.resName;
+        var menus = req.body.menus;
+        var area = req.body.area;
+        var restaurant = new Restaurant();
+        restaurant.resName = restaurantName.toLowerCase();
+        restaurant.menus = menus;
+        restaurant.area = area;
+        restaurant.save(function(err){
+            if(err){
+                return res.status(400).send({
+                    message : "error"
+                });
+            }
+            return res.status(200).send({
+                message : "successful"
+            });
+        });
+
     });
 
 };

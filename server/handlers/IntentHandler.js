@@ -5,6 +5,8 @@ var laundryIntent = require('./LaundryIntent');
 var groceryIntent = require('./GroceryIntent');
 var uberIntent = require('./UberIntent');
 var weatherIntent = require('./WeatherIntent');
+var menuIntent = require('./MenuIntent');
+var orderIntent = require('./OrderIntent');
 
 exports.handleIntent = function (intentWithSlots, callback) {
     var intent = intentWithSlots.intent;
@@ -24,7 +26,22 @@ exports.handleIntent = function (intentWithSlots, callback) {
             console.log("message: " + message);
             callback(message);
         });
-    } else {
+    } else if(intent == "menu") {
+        menuIntent.handle(intentWithSlots.slots, function (message) {
+            console.log("message: " + message);
+            callback(message);
+        });
+    } else if(intent == "order") {
+        if(!intentWithSlots.isFulfilled) {
+            callback(intentWithSlots.message)
+        }else {
+            orderIntent.handle(intentWithSlots.slots, function (message) {
+                console.log("message: " + message);
+                callback(message);
+            });
+        }
+    }
+    else {
         callback("I dont know what you mean");
     }
 };

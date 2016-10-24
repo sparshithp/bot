@@ -7,44 +7,58 @@ var apiai = require('apiai');
 exports.parseIntent =function(userId, text, callback)
 {
     var app = apiai("722956b34c424fc5b08b356ce4119e55");
-
-    var request = app.textRequest(text);
-    request.on('response', function (response) {
-        console.log(response);
-        var result = response.result;
-        var intent = result.action;
-        var slots = {};
-        var params = result.parameters;
-        for (var key in params) {
-            var val = params[key];
-            if (val && val != "") {
-                slots[key] = val;
-            }
+    Context.findOne({userId: userId}, function(err, context){
+        var options = {};
+        if(context){
+            options.contexts = context;
         }
-
-
-        var intentWithSlots = {
-            intent: intent,
-            slots: slots
-        };
-        callback(intentWithSlots);
-        var context = new Context();
-        if (intent != "input.unknown") {
-            context.userId = userId;
-            context.intent = intent;
-            context.slots = slots;
-            context.save(function (err) {
-                if (err) {
-                    console.log("error saving context");
+        var request = app.textRequest(text, options);
+        request.on('response', function (response) {
+            console.log(response);
+            var result = response.result;
+            var isFulfilled = !result["actionIncomplete"];
+            var context = result.context;
+            var intent = result.action;
+            var slots = {};
+            var params = result.parameters;
+            for (var key in params) {
+                var val = params[key];
+                if (val && val != "") {
+                    slots[key] = val;
                 }
-                console.log("saved");
-            })
-        }
+            }
+
+
+            var intentWithSlots = {
+                isFulfilled: isFulfilled,
+                intent: intent,
+                slots: slots,
+                context: context,
+                message: result.fulfillment.speech
+            };
+
+            callback(intentWithSlots);
+            if(!isFulfilled) {
+                var context = new Context();
+                context.userId = userId;
+                context.context = context;
+                context.save(function(err){
+                    if(err){console.log(err)}
+                });
+            } else {
+                Context.remove({userId: userId}, function(err){
+                    if(err){console.log("error deleteing")}
+                });
+            }
+
+        });
+
+        request.on('error', function (error) {
+            console.log(error);
+        });
+
+        request.end();
     });
 
-    request.on('error', function (error) {
-        console.log(error);
-    });
 
-    request.end();
 };

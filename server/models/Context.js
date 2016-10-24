@@ -5,8 +5,7 @@ var mongoose = require('mongoose');
 
 var contextSchema = new mongoose.Schema({
     userId: String,
-    intent: String,
-    slots: Object
+    context: [String]
 });
 
 module.exports = mongoose.model('Context', contextSchema);

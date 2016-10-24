@@ -10,6 +10,7 @@ var intent = require('./server/controllers/Intent');
 
 // Register models
 require('./server/models/User');
+//require('./server/models/Restaurant');
 
 // Connect to database
 mongoose.connect(config.MONGO_URI);
