@@ -11,7 +11,7 @@ exports.handle = function(slots, callback) {
         server_token: 'xVXCPrLvA4F8r2vqdPAGH2RIAPTb1lDU7wcQ519e',
         name: 'BotApp'
     });
-    var message = "yow";
+    var message = "We couldnt find the information you were looking for";
     uber.estimates.getETAForLocation(12.957859, 77.715038, function(err, res){
         if(err) {
             message = "We had some trouble contacting uber";

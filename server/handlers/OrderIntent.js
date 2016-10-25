@@ -4,5 +4,5 @@
 
 exports.handle = function(slots, callback) {
     console.log(slots);
-    callback("Order placed with "+ slots.order);
+    callback("Order placed with "+ slots.restaurant + " for " + slots.order);
 };

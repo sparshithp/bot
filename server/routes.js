@@ -38,7 +38,8 @@ module.exports = function (app) {
 
     app.post('/auth/signup', userController.signup);
 
-    app.post('/parse', function (req, res) {
+    app.post('/parse', ensureAuthenticated, function (req, res) {
+        console.log(req.user);
         var text = req.body.text;
         var userId = req.body.userId;
         if (!text || text == "") {
@@ -90,8 +91,11 @@ module.exports = function (app) {
 
 function ensureAuthenticated(req, res, next) {
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
-
+  //  var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+    if (!req.header('Authorization')) {
+        return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+    }
+    var token = req.header('Authorization').split(' ')[1];
     // decode token
     if (token) {
 
