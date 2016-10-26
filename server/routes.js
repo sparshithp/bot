@@ -5,7 +5,7 @@ var config = require('../config');
 var User = mongoose.model('User');
 var Restaurant = require('./models/restaurant');
 var userController = require('./controllers/UserController');
-var nlpParser = require('./nlp/parser');
+var nlpParser = require('./nlp/Parser');
 var handler = require('./handlers/IntentHandler');
 
 module.exports = function (app) {
