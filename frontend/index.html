@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html ng-app="hubChat">
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/framework.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="shortcut icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="apple-touch-icon" href="images/logo.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/circle.css">
+
+
+
+  <!-- crazy new CDN releases -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="scripts/angular/angular.js"></script>
+  <script src="scripts/angular/angular-messages.js"></script>
+  <script src="scripts/angular/angular-resource.js"></script>
+  <script src="scripts/angular/angular-animate.js"></script>
+
+  <!-- PubNub -->
+  <script src="scripts/angular/pubnub.min.js"></script>
+  <script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
+
+  <!-- bower_components -->
+  <script src='bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+  <script src='bower_components/pubnub-angular/lib/pubnub-angular.js'></script>
+  <script src='bower_components/angular-strap/dist/angular-strap.min.js'></script>
+  <script src='bower_components/angular-strap/dist/angular-strap.tpl.min.js'></script>
+  <script src='bower_components/satellizer/satellizer.js'></script>
+
+  <!-- custom scripts -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/directives/passwordStrength.js"></script>
+  <script src="scripts/controllers/cart.js"></script>
+  <script src="scripts/controllers/nav.js"></script>
+  <script src="scripts/controllers/login.js"></script>
+  <script src="scripts/controllers/home.js"></script>
+  <script src="scripts/controllers/signup.js"></script>
+  <script src="scripts/controllers/logout.js"></script>
+  <script src="scripts/controllers/profile.js"></script>
+  <script src="scripts/controllers/chef.js"></script>
+  <script src="scripts/controllers/mealDetail.js"></script>
+  <script src="scripts/controllers/chat.js"></script>
+  <script src="scripts/services/account.js"></script>
+  <script src="scripts/services/account.js"></script>
+</head>
+<body>
+<section class="w-section mobile-wrapper">
+  <div class="page-content" id="main-stack">
+
+    <!--Navbar start-->
+    <div ng-controller="NavbarCtrl" class="w-nav navbar" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+      <div class="w-container">
+        <nav class="w-nav-menu nav-menu bg-gradient" role="navigation">
+          <div class="nav-menu-header">
+            <div class="logo">Manhattan</div>
+          </div>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="home">
+            <div class="icon-list-menu">
+              <div class="icon ion-ios-home-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Home Page</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="login" ng-if="!isAuthenticated()">
+            <div class="icon-list-menu">
+              <div class="icon ion-ios-download-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Login</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="signup" ng-if="!isAuthenticated()">
+            <div class="icon-list-menu">
+              <div class="icon ion-ios-upload-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Signup</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="profile" ng-if="isAuthenticated()">
+            <div class="icon-list-menu">
+              <div class="icon ion-ios-download-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Profile</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="logout" ng-if="isAuthenticated()">
+            <div class="icon-list-menu">
+              <div class="icon ion-ios-upload-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Logout</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="mealDetail">
+            <div class="icon-list-menu">
+              <div class="icon ion-ios-box-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Meal Detail</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="chef">
+            <div class="icon-list-menu">
+              <div class="ion-ios-folder-outline"></div>
+            </div>
+            <div class="nav-menu-titles">Chef</div>
+            <div class="nav-menu-text-right">8</div>
+          </a>
+          <div class="separator-bottom"></div>
+          <div class="separator-bottom"></div>
+          <div class="separator-bottom"></div>
+        </nav>
+        <div class="wrapper-mask" data-ix="menu-mask"></div>
+        <div class="navbar-title">{{title}}</div>
+        <div class="w-nav-button navbar-button left" id="menu-button" data-ix="hide-navbar-icons">
+          <div class="navbar-button-icon home-icon">
+            <div class="bar-home-icon top"></div>
+            <div class="bar-home-icon middle"></div>
+            <div class="bar-home-icon bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Navbar end-->
+
+    <div class="body">
+      <div ui-view></div>
+    </div>
+  </div>
+  <div class="page-content loading-mask" id="new-stack">
+    <div class="loading-icon">
+      <div class="navbar-button-icon icon ion-load-d"></div>
+    </div>
+  </div>
+</section>
+<script src="js/webfont.js"></script>
+<script>
+    WebFont.load({
+        google: {
+            families: ["Montserrat:400,700"]
+        }
+    });
+</script>
+<script type="text/javascript" src="js/modernizr.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/framework.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<!--[if lte IE 9]><script src="js/placeholders.min.js"></script><![endif]-->
+
+
+</body>
+
+</html>
+

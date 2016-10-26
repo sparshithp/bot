@@ -1,0 +1,232 @@
+<div style="padding-top: 60px">
+
+    <div class="w-tabs" data-duration-in="400" data-duration-out="400" data-easing="ease-out-quint">
+        <!--
+        <div class="w-tab-menu top-buttons">
+          <a ui-sref="home" class="w-tab-link w--current w-inline-block toolbar-top-button" data-w-tab="Tab 1">
+            <div>ACTIVE</div>
+          </a>
+          <a  ui-sref="homeChef" class="w-tab-link w-inline-block toolbar-top-button" data-w-tab="Tab 2">
+            <div>ARCHIVED</div>
+          </a>
+        </div>
+        -->
+        <div class="w-tab-content tabs-content">
+            <div>
+                <div class="separator-fields"></div>
+                <select class="w-select input-form select" ng-model="areaSelected" ng-change="changedArea(areaSelected)"
+                        data-ng-options="area as area.area for area in areas">
+                    <option value="">Select delivery area</option>
+                </select>
+            </div>
+            <div>
+                <ul class="w-clearfix list-news">
+                    <li ng-repeat="meal in meals" class="list-item-new">
+                        <a class="w-inline-block link-blog-list" ui-sref="mealDetail({mealId : meal._id})" data-load="1">
+                            <table width="100%">
+                                <td width="80%">
+                                    <div class="image-new" style='background-image: url({{meal.imageUrl}})'>
+                                        <span>
+                                            <i class="fa fa-inr" aria-hidden="true"></i> {{meal.price}}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td width="20%">
+                                    <table>
+                                        <tr>
+                                            <td style="padding: 10px">
+                                                <div class="chef-side circular-side" style='background-image: url({{meal.chefImageUrl}})'></div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+
+                                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 10px">
+                                                {{meal.remainingCount}} Rem
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </table>
+                            <div class="text-new">
+                                <ul class="list list-events">
+                                    <li class="list-calendar-events" data-ix="list-item">
+                                        <a class="w-clearfix w-inline-block" data-load="1">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td align="center" style="width: 100%">
+                                                        <div class="calendar-col-left">
+                                                            <div class="event-title">{{meal.foodName}}</div>
+                                                            <div class="w-clearfix text-event-wrap">
+
+                                                                <div class="event-text">Delivery: {{getTime(meal.availableTime)}}</div>
+                                                                <div class="event-text">Order Before: {{getTime(meal.orderBeforeTime)}}</div>
+
+
+                                                            </div>
+                                                            <div class="w-clearfix text-event-wrap">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--
+                                            <div class="w-clearfix calendar-col-right">
+                                              <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                                              </div>
+                                            </div>
+                                            -->
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--
+                                <a class="category-link" href="#">VEGETARIAN</a><a class="category-link" href="#">BREAKFAST</a>
+                                -->
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-item-new">
+                        <a class="w-inline-block link-blog-list" ui-sref="mealDetail" data-load="1">
+                            <table width="100%">
+                                <td width="80%">
+                                    <div class="image-new bg1"><span><i class="fa fa-inr"
+                                                                        aria-hidden="true"></i> 95</span>
+                                    </div>
+                                </td>
+                                <td width="20%">
+                                    <table>
+                                        <tr>
+                                            <td style="padding: 10px">
+                                                <div class="chef-side circular-side"></div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+
+                                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 10px">
+                                                3 Sold
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </table>
+                            <div class="text-new">
+                                <ul class="list list-events">
+                                    <li class="list-calendar-events" data-ix="list-item">
+                                        <a class="w-clearfix w-inline-block" data-load="1">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td align="center" style="width: 100%">
+                                                        <div class="calendar-col-left">
+                                                            <div class="event-title">Chicken Biryani</div>
+                                                            <div class="w-clearfix text-event-wrap">
+
+                                                                <div class="event-text">ETA- 1:30 PM</div>
+                                                                <div class="event-text">QTY: 3</div>
+                                                                <div class="event-text">Before: 12:00PM</div>
+
+
+                                                            </div>
+                                                            <div class="w-clearfix text-event-wrap">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--
+                                            <div class="w-clearfix calendar-col-right">
+                                              <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                                              </div>
+                                            </div>
+                                            -->
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--
+                                <a class="category-link" href="#">VEGETARIAN</a><a class="category-link" href="#">BREAKFAST</a>
+                                -->
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-item-new">
+                        <a class="w-inline-block link-blog-list" ui-sref="mealDetail" data-load="1">
+                            <div class="image-new" style="background-image: url('../images/upma.jpg')"><span><i
+                                    class="fa fa-inr" aria-hidden="true"></i> 45</span></div>
+                            <div class="text-new">
+                                <ul class="list list-events">
+                                    <li class="list-calendar-events" data-ix="list-item">
+                                        <a class="w-clearfix w-inline-block" href="addnew.html" data-load="1">
+                                            <table>
+                                                <tr>
+                                                    <td align="center" style="width: 80%">
+                                                        <div class="calendar-col-left">
+                                                            <div class="event-title">Upma</div>
+                                                            <div class="w-clearfix text-event-wrap">
+                                                                <div class="event-text">ETA- 1:30 PM</div>
+                                                                <div class="event-text">QTY: 3</div>
+
+                                                            </div>
+                                                            <div class="w-clearfix text-event-wrap">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="chef circular">
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="c100 green p92 small">
+                                                            <span>9.2</span>
+
+                                                            <div class="slice">
+                                                                <div class="bar"></div>
+                                                                <div class="fill"></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--
+                                            <div class="w-clearfix calendar-col-right">
+                                              <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                                              </div>
+                                            </div>
+                                            -->
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--
+                                <a class="category-link" href="#">VEGETARIAN</a><a class="category-link" href="#">BREAKFAST</a>
+                                -->
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

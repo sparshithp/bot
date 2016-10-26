@@ -10,6 +10,10 @@ var handler = require('./handlers/IntentHandler');
 
 module.exports = function (app) {
 
+    app.get('/', function(req, res){
+        res.sendFile('index.html', {root: 'frontend'});
+    });
+
     app.get('/api/me', ensureAuthenticated, function (req, res) {
         console.log(req.user);
         User.findById(req.user._id, function (err, user) {

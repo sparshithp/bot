@@ -1,0 +1,60 @@
+
+<div style="padding-top: 65px">
+  <p> <font color="red">{{message}}</font></p>
+
+  <div class="body padding">
+  <div class="w-form">
+    <form method="post" ng-submit="signup()" name="signupForm">
+      <div class="separator-button-input"></div>
+      <div>
+        <label class="label-form" for="email-field">FULL NAME</label>
+        <input  ng-model="fullName" class="w-input input-form" id="name-field" type="text" name="fullName" data-name="fullName"/>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="email-field">EMAIL</label>
+        <input  ng-model="email" class="w-input input-form" id="email-field" type="email" name="email" data-name="email"/>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="password-ield">PASSWORD</label>
+        <input  ng-model="password" class="w-input input-form" id="password-ield" type="password" name="password" data-name="password"/>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="password-ield">CONFIRM PASSWORD</label>
+        <input  ng-model="confPwd" class="w-input input-form" id="confPwd-field" type="password" name="confPwd" data-name="confPwd"/>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="email-field">STREET ADDRESS</label>
+        <input  ng-model="address" class="w-input input-form" id="address-field" type="text" name="address" data-name="address"/>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="node-10">CITY</label>
+        <div class="separator-fields"></div>
+        <select ng-model="city" class="w-select input-form select" id="node-10">
+          <option value="">Select one...</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Chennai">Chennai</option>
+        </select>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="email-field">ZIP CODE</label>
+        <input  ng-model="zipCode" class="w-input input-form" id="zipCode-field" type="number" name="zipCode" data-name="zipCode"/>
+        <div class="separator-fields"></div>
+      </div>
+      <div>
+        <label class="label-form" for="email-field">PHONE</label>
+        <input  ng-model="phone" class="w-input input-form" id="phone-field" type="number" name="phone" data-name="phone"/>
+        <div class="separator-fields"></div>
+      </div>
+      <button class="w-button action-button btn btn-lg  btn-block btn-success" type="submit">Signup</button>
+
+    </form>
+    <p> <font color="red">{{message}}</font></p>
+  </div>
+</div>
+</div>
