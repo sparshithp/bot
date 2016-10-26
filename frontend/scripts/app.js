@@ -4,8 +4,7 @@ var app = angular.module('hubChat', [
     'mgcrea.ngStrap',
     'pubnub.angular.service',
     'ngMessages',
-    'ngAnimate',
-    'luegg.directives'
+    'ngAnimate'
 ]);
 
 app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
