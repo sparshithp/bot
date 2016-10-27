@@ -72,7 +72,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 // This code runs after the authentication promise has been rejected.
                 // Go to the log-in page
                 $state.go('login')
-            })
+            });
 
             // Reject the authentication promise to prevent the state from loading
             return $q.reject()
@@ -80,7 +80,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
     }
 
     $urlRouterProvider.otherwise('/');
-
+    $authProvider.storageType = 'localStorage';
     $authProvider.loginUrl = "http://sparshith.online:8080/auth/login";
     $authProvider.signupUrl = "http://sparshith.online:8080/auth/signup";
 

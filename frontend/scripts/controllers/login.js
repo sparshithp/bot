@@ -4,7 +4,7 @@ app.controller('LoginCtrl', function ($scope, $alert, $auth, $state, $rootScope)
 
 
     $scope.login = function () {
-
+        $scope.message="";
         var email = $scope.email;
         var password = $scope.password;
 
