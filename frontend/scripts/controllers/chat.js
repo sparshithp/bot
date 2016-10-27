@@ -1,7 +1,7 @@
 /**
  * Created by sparshithp on 10/24/16.
  */
-app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $location, $anchorScroll) {
+app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $location, $anchorScroll, URL) {
     $location.hash('scrollArea');
 
     // call $anchorScroll()
@@ -21,7 +21,7 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
 
         // call $anchorScroll()
         $anchorScroll();
-        $http.post('http://sparshith.online:8080/parse', {userId: 'sffsf', text: $scope.msg})
+        $http.post(URL+'/parse', {userId: 'sffsf', text: $scope.msg})
             .then(
                 function(response){
                     $scope.msg = "";

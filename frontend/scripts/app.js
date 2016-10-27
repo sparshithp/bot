@@ -5,9 +5,15 @@ var app = angular.module('hubChat', [
     'pubnub.angular.service',
     'ngMessages',
     'ngAnimate'
-]);
+]).constant('URL', 'http://sparshith.online:8080');
 
-app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $authProvider, URL) {
+    console.log(URL);
+    $urlRouterProvider.otherwise('/');
+    $authProvider.storageType = 'localStorage';
+    $authProvider.loginUrl = URL+"/auth/login";
+    $authProvider.signupUrl = URL+"/auth/signup";
+
     $stateProvider
         .state('home', {
             url: '/',
@@ -79,10 +85,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
         }
     }
 
-    $urlRouterProvider.otherwise('/');
-    $authProvider.storageType = 'localStorage';
-    $authProvider.loginUrl = "http://sparshith.online:8080/auth/login";
-    $authProvider.signupUrl = "http://sparshith.online:8080/auth/signup";
+
 
 
 });
