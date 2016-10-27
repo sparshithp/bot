@@ -5,14 +5,6 @@
         <li class="list-chat right" data-ix="list-item">
             <div class="w-clearfix column-right chat right">
                 <div class="arrow-globe right"></div>
-                <div class="chat-text right">Yes, they are and they are
-                    <br>really easy to use as well.</div>
-                <div class="chat-time right">50 sec ago</div>
-            </div>
-        </li>
-        <li class="list-chat right" data-ix="list-item">
-            <div class="w-clearfix column-right chat right">
-                <div class="arrow-globe right"></div>
                 <div class="chat-text right">These speech bubbles are
                     <br> awesome!
                 </div>
@@ -34,17 +26,6 @@
                     <br> awesome!
                 </div>
                 <div class="chat-time right">3 min ago</div>
-            </div>
-        </li>
-        <li class="w-clearfix list-chat" data-ix="list-item">
-            <div class="column-left chat">
-                <div class="image-message chat"><img src="images/placeholder.png">
-                </div>
-            </div>
-            <div class="w-clearfix column-right chat">
-                <div class="arrow-globe"></div>
-                <div class="chat-text">I know, right? And so is this template...</div>
-                <div class="chat-time">1 min ago</div>
             </div>
         </li>
         <li class="list-chat right" data-ix="list-item">
@@ -106,14 +87,14 @@
                 </div>
                 <div class="w-clearfix column-right chat">
                     <div class="arrow-globe"></div>
-                    <div class="chat-text">{{chat.text}}</div>
+                    <div style="display: inline-block; word-break: normal" class="chat-text">{{chat.text}}</div>
                     <div class="chat-time">7 sec ago</div>
                 </div>
             </li>
             <li ng-hide= chat.response class="list-chat right" data-ix="list-item">
                 <div class="w-clearfix column-right chat right">
                     <div class="arrow-globe right"></div>
-                    <div class="chat-text right">{{chat.text}}</div>
+                    <div class="chat-text right" style="display: inline-block; word-break: break-all">{{chat.text}}</div>
                     <div class="chat-time right">just now</div>
                 </div>
             </li>
@@ -125,15 +106,9 @@
     </div>
 <div  class="input-chat-block">
     <div class="w-form">
-        <form method="post" ng-submit="sendMessage()" class="w-clearfix" id="wf-form-Send" name="wf-form-Send">
+        <form method="post" ng-submit="sendMessage()" class="w-clearfix" id="wf-form-Send" name="wf-form-Send"  autocomplete="off">
             <input ng-model="msg" class="w-input input-chat" id="chat-message" type="text" placeholder="Your message" name="email" data-name="Email" required="required">
             <input class="w-button chat-button" type="submit" value="Send">
         </form>
-        <div class="w-form-done">
-            <p>Thank you! Your submission has been received!</p>
-        </div>
-        <div class="w-form-fail">
-            <p>Oops! Something went wrong while submitting the form</p>
-        </div>
     </div>
 </div>
