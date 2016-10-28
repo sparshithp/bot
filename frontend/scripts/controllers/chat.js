@@ -3,7 +3,12 @@
  */
 app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $location, $anchorScroll, URL) {
     $location.hash('scrollArea');
-
+    var iOS = ['iPad', 'iPhone', 'iPod'].indexOf(navigator.platform) >= 0;
+    //Chat block bottom padding hack fix
+    $scope.chatPadding = '0%';
+    if(!iOS) {
+        $scope.chatPadding = '15%';
+    }
     // call $anchorScroll()
     $anchorScroll();
     $rootScope.title = "Chat";
