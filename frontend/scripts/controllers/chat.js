@@ -41,6 +41,7 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
                 },
                 function(response){
                     // failure callback
+                    console.log(response);
                 }
             );
     }

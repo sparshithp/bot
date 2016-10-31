@@ -43,16 +43,12 @@ module.exports = function (app) {
     app.post('/auth/signup', userController.signup);
 
     app.post('/parse', ensureAuthenticated, function (req, res) {
-        console.log(req.user);
+        console.log(req.user._id);
         var text = req.body.text;
-        var userId = req.body.userId;
+        var userId = req.user._id;
         if (!text || text == "") {
             res.status(400).send({
                 message: "No Text"
-            });
-        } else if (!userId) {
-            res.status(400).send({
-                message: "No User"
             });
         } else {
             var intentWithSlots = nlpParser.parseIntent(userId, text, function(intentWithSlots){
