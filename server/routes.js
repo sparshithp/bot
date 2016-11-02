@@ -5,6 +5,7 @@ var config = require('../config');
 var User = mongoose.model('User');
 var Restaurant = require('./models/restaurant');
 var userController = require('./controllers/UserController');
+var listController = require('./controllers/List');
 var nlpParser = require('./nlp/Parser');
 var handler = require('./handlers/IntentHandler');
 
@@ -82,6 +83,7 @@ module.exports = function (app) {
 
     });
 
+    app.post('/list/add', ensureAuthenticated, listController.add);
 };
 
 
