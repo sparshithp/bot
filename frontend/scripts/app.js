@@ -5,7 +5,7 @@ var app = angular.module('hubChat', [
     'pubnub.angular.service',
     'ngMessages',
     'ngAnimate'
-]).constant('URL', 'http://sparshith.online:8080');
+]).constant('URL', 'http://localhost:8080');
 
 app.config(function ($stateProvider, $urlRouterProvider, $authProvider, URL) {
     console.log(URL);
@@ -53,6 +53,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider, URL) {
             url: '/chef',
             templateUrl: 'views/chef.html',
             controller: 'chefCtrl'
+        })
+        .state('list', {
+            url: '/list',
+            templateUrl: 'views/list.html',
+            controller: 'ListCtrl'
         })
         .state('profile', {
             url: '/profile',

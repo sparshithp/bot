@@ -33,34 +33,13 @@ if (app.get('env') === 'production') {
   });
 }
 
-var sockjs = require('sockjs');
-
-var connections = [];
-
-var chat = sockjs.createServer();
-
-chat.on('connection', function(conn) {
-  connections.push(conn);
-  var number = connections.length;
-  conn.write("Welcome, User " + number);
-  conn.on('data', function(message) {
-    var req = JSON.parse(message);
-    intent.parse(req, conn);
-  });
-  conn.on('close', function() {
-    for (var ii=0; ii < connections.length; ii++) {
-      connections[ii].write("User " + number + " has disconnected");
-    }
-  });
-});
 
 // Routes
 require('./server/routes')(app);
 var server = http.createServer(app);
 
-chat.installHandlers(server, {prefix:'/chat'});
-
 server.listen(8080);
+console.log('Express server listening on port ' + app.get('port'));
 /*
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

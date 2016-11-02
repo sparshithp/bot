@@ -17,7 +17,7 @@
 
 
   <!-- crazy new CDN releases -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://s3.amazonaws.com/sparsh-1/angular.js"></script>
   <script src="https://s3.amazonaws.com/sparsh-1/angular-messages.js"></script>
   <script src="https://s3.amazonaws.com/sparsh-1/angular-resource.js"></script>
@@ -44,10 +44,13 @@
   <script src="scripts/controllers/logout.js"></script>
   <script src="scripts/controllers/profile.js"></script>
   <script src="scripts/controllers/chef.js"></script>
+  <script src="scripts/controllers/list.js"></script>
   <script src="scripts/controllers/mealDetail.js"></script>
   <script src="scripts/controllers/chat.js"></script>
   <script src="scripts/services/account.js"></script>
-  <script src="scripts/services/account.js"></script>
+
+  <link href="css/xeditable.css" rel="stylesheet">
+  <script src="js/xeditable.js"></script>
 </head>
 <body>
 <section class="w-section mobile-wrapper">
@@ -101,6 +104,13 @@
               <div class="ion-ios-folder-outline"></div>
             </div>
             <div class="nav-menu-titles">Chef</div>
+            <div class="nav-menu-text-right">8</div>
+          </a>
+          <a class="w-clearfix w-inline-block nav-menu-link" ui-sref="list">
+            <div class="icon-list-menu">
+              <div class="ion-ios-folder-outline"></div>
+            </div>
+            <div class="nav-menu-titles">List</div>
             <div class="nav-menu-text-right">8</div>
           </a>
           <div class="separator-bottom"></div>
