@@ -57,7 +57,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider, URL) {
         .state('list', {
             url: '/list',
             templateUrl: 'views/list.html',
-            controller: 'ListCtrl'
+            controller: 'ListCtrl',
+            resolve: { authenticate: authenticate }
         })
         .state('profile', {
             url: '/profile',
