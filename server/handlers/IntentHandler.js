@@ -7,8 +7,9 @@ var uberIntent = require('./UberIntent');
 var weatherIntent = require('./WeatherIntent');
 var menuIntent = require('./MenuIntent');
 var orderIntent = require('./OrderIntent');
+var addGroceryIntent = require('./AddGroceryIntent');
 
-exports.handleIntent = function (intentWithSlots, callback) {
+exports.handleIntent = function (intentWithSlots, userId, callback) {
     var intent = intentWithSlots.intent;
     if (intent == "laundry") {
         var message = laundryIntent.handle(intentWithSlots.slots);
@@ -28,6 +29,11 @@ exports.handleIntent = function (intentWithSlots, callback) {
         });
     } else if(intent == "menu") {
         menuIntent.handle(intentWithSlots.slots, function (message) {
+            console.log("message: " + message);
+            callback(message);
+        });
+    } else if(intent == "addGrocery") {
+        addGroceryIntent.handle(intentWithSlots.slots, userId, function (message) {
             console.log("message: " + message);
             callback(message);
         });

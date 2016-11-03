@@ -53,7 +53,7 @@ module.exports = function (app) {
             });
         } else {
             var intentWithSlots = nlpParser.parseIntent(userId, text, function(intentWithSlots){
-                var returnMsg = handler.handleIntent(intentWithSlots, function(returnMsg){
+                var returnMsg = handler.handleIntent(intentWithSlots, userId, function(returnMsg){
                     console.log(returnMsg);
                     res.status(200).send(returnMsg);
                 });
