@@ -25,3 +25,18 @@ exports.add = function(req, res) {
     });
 };
 
+exports.get = function(req, res) {
+    var userId = req.user._id;
+    List.findOne({userId: userId}, function(err, list){
+        if(err){
+            res.status(400).send({
+                message: "error"
+            });
+        }else{
+            res.status(200).send({
+                list: list
+            });
+        }
+    });
+}
+

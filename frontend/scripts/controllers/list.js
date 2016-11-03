@@ -7,7 +7,7 @@ app.controller('ListCtrl', function($scope, $auth, $state, $filter, $http, URL) 
 
         return $auth.isAuthenticated();
     };
-    $scope.items = ["1 Kg Toor Dal", "100g Onions", "2 Rin Soap"];
+ //   $scope.items = ["1 Kg Toor Dal", "100g Onions", "2 Rin Soap"];
 
     $scope.addItem = function(){
         var itemToAdd = $scope.itemToAdd;
@@ -22,7 +22,7 @@ app.controller('ListCtrl', function($scope, $auth, $state, $filter, $http, URL) 
         console.log(index);
         $scope.items.splice(index, 1);
     };
-
+/*
     $http.post(URL+'/list/add', {items: $scope.items})
                 .then(
                     function(response){
@@ -32,5 +32,17 @@ app.controller('ListCtrl', function($scope, $auth, $state, $filter, $http, URL) 
                         // failure callback
                         console.log(response);
                     }
-                );
+    );
+    */
+
+    $http.get(URL+'/list/get')
+      .then(function(response){
+                            $scope.items = response.data.list.items;
+                              console.log(response);
+                          },
+                          function(response){
+                              // failure callback
+                              console.log(response);
+                          }
+          );
 });

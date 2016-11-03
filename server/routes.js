@@ -83,6 +83,8 @@ module.exports = function (app) {
 
     });
 
+    app.get('/list/get', ensureAuthenticated, listController.get);
+
     app.post('/list/add', ensureAuthenticated, listController.add);
 };
 
