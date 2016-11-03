@@ -86,6 +86,14 @@ module.exports = function (app) {
     app.get('/list/get', ensureAuthenticated, listController.get);
 
     app.post('/list/add', ensureAuthenticated, listController.add);
+
+    app.post('/list/addItem', ensureAuthenticated, listController.addItem);
+
+    app.post('/list/deleteItem', ensureAuthenticated, listController.deleteItem);
+
+    app.post('/list/editItem', ensureAuthenticated, listController.editItemById);
+
+
 };
 
 

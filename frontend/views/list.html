@@ -1,10 +1,10 @@
 <div class="body" style="padding-top: 60px">
     <div class="hero-image">
         <div class="hero-image-title">
-            <h2>Goals</h2>
-            <div class="sub-title-small">&nbsp;3 of 10 tasks &nbsp;|&nbsp;&nbsp;75% completed</div>
+            <h2>Groceries</h2>
+            <div class="sub-title-small">{{items.length}} items in the list</div>
         </div>
-        <div class="hero-image-img"><img src="images/placeholder.png">
+        <div class="hero-image-img"><img src="images/grocery_list.jpg">
         </div>
     </div>
     <ul class="list">
@@ -19,9 +19,9 @@
         <li ng-repeat="item in items" class="list-item" data-ix="list-item">
             <a class="w-clearfix w-inline-block">
                 <div class="icon-list highlighted">
-                    <div class="icon ion-ios-close-empty" ng-click="print($index)"></div>
+                    <div class="icon ion-ios-close-empty" ng-click="print(item._id)"></div>
                 </div>
-                <input class="title-list" style="border-width: 0; width:85%" value={{item.name}}></input>
+                <input class="title-list" style="border-width: 0; width:85%" ng-model="item.name" ng-blur="editItem(item._id, item.name)"></input>
             </a>
         </li>
     </ul>
