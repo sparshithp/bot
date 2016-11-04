@@ -4,11 +4,11 @@
 var List = require('../models/List');
 
 exports.handle = function (slots, userId, callback) {
-    List.findOne({userId: userId}, function (err, list) {
+    List.findOne({userId: userId, status: "open"}, function (err, list) {
         if (err) {
             callback("We experienced an error");
         } else {
-            if (!list || list.status != "open") {
+            if (!list) {
                 list = new List();
                 list.userId = userId;
                 list.status = "open";
