@@ -1,7 +1,7 @@
 /**
  * Created by sparshithp on 10/24/16.
  */
-app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $location, $anchorScroll, URL) {
+app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $location, $anchorScroll, $stateParams, URL) {
     $location.hash('scrollArea');
     var iOS = ['iPad', 'iPhone', 'iPod'].indexOf(navigator.platform) >= 0;
     //Chat block bottom padding hack fix
@@ -13,6 +13,13 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
     $anchorScroll();
     $rootScope.title = "Chat";
     $scope.chats = [];
+    console.log($stateParams);
+    if($stateParams.lastChat) {
+        $scope.chats.push({
+            response: true,
+            text: $stateParams.lastChat
+        });
+    }
     $scope.sendMessage = function(){
         if(!$scope.msg || $scope.msg.trim()==""){
             $scope.msg = "";

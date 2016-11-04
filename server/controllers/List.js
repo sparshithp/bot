@@ -32,9 +32,10 @@ exports.get = function(req, res) {
             res.status(400).send({
                 message: "error"
             });
-        }else if (!list){
+        }else if (!list || list.status != "open"){
             list = new List({userId: userId});
             list.items = [];
+            list.status = "open";
             list.save(function(err){
                 res.status(200).send({
                     list: list
@@ -138,6 +139,36 @@ exports.editItemById = function(req, res) {
                     });
                 }
             });
+        }
+    });
+};
+
+exports.checkout = function(req, res){
+    var userId = req.user._id;
+    List.findOne({userId: userId, status: "open"}, function(err, list){
+        if(err){
+            res.status(400).send({
+                message: "error"
+            });
+        } else if(!list || !list.items || list.items.length == 0){
+            res.status(200).send({
+                success: false,
+                message: "You dont have a shopping list"
+            });
+        } else {
+            list.status = "placed";
+            list.save(function(err){
+                if(err){
+                    res.status(400).send({
+                        message: "error"
+                    });
+                }else{
+                    res.status(200).send({
+                        success: true,
+                        message: "Order has been placed. You will get your groceries within a couple of hours."
+                    });
+                }
+            })
         }
     });
 };

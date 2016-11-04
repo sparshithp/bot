@@ -89,5 +89,18 @@ app.controller('ListCtrl', function ($scope, $rootScope, $auth, $state, $filter,
                     console.log(response);
                 }
             );
+    };
+
+    $scope.checkout = function(){
+        console.log("Checkout");
+        $http.get(URL + '/list/checkout')
+            .then(function (response) {
+                    $state.go("home", {lastChat: response.data.message});
+                },
+                function (response) {
+                    // failure callback
+                    console.log(response);
+                }
+            );
     }
 });

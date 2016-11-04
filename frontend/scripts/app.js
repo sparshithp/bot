@@ -19,6 +19,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider, URL) {
             url: '/',
             templateUrl: 'views/chat.html',
             controller: 'chatCtrl',
+            params: {
+                lastChat: null
+            },
             resolve: { authenticate: authenticate }
         })
         .state('login', {

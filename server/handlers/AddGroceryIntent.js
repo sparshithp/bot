@@ -8,8 +8,10 @@ exports.handle = function (slots, userId, callback) {
         if (err) {
             callback("We experienced an error");
         } else {
-            if (!list) {
-                list = new List({userId: userId});
+            if (!list || list.status != "open") {
+                list = new List();
+                list.userId = userId;
+                list.status = "open";
                 list.items = [];
             }
             var items = list.items;

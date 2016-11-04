@@ -93,6 +93,9 @@ module.exports = function (app) {
 
     app.post('/list/editItem', ensureAuthenticated, listController.editItemById);
 
+    app.get('/list/checkout', ensureAuthenticated, listController.checkout);
+
+
 
 };
 
