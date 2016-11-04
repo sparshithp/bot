@@ -27,12 +27,12 @@ exports.add = function(req, res) {
 
 exports.get = function(req, res) {
     var userId = req.user._id;
-    List.findOne({userId: userId}, function(err, list){
+    List.findOne({userId: userId, status: "open"}, function(err, list){
         if(err){
             res.status(400).send({
                 message: "error"
             });
-        }else if (!list || list.status != "open"){
+        }else if (!list){
             list = new List({userId: userId});
             list.items = [];
             list.status = "open";
@@ -53,7 +53,7 @@ exports.get = function(req, res) {
 exports.addItem = function(req, res) {
     var userId = req.user._id;
     var itemName = req.body.item;
-    List.findOne({userId: userId}, function(err, list){
+    List.findOne({userId: userId, status:"open"}, function(err, list){
         if(err){
             res.status(400).send({
                 message: "error"
@@ -78,7 +78,7 @@ exports.addItem = function(req, res) {
 exports.deleteItem = function(req, res) {
     var userId = req.user._id;
     var itemId = req.body.itemId;
-    List.findOne({userId: userId}, function(err, list){
+    List.findOne({userId: userId, status:"open"}, function(err, list){
         if(err){
             res.status(400).send({
                 message: "error"
@@ -115,7 +115,7 @@ exports.editItemById = function(req, res) {
     var userId = req.user._id;
     var itemId = req.body.itemId;
     var itemName = req.body.itemName;
-    List.findOne({userId: userId}, function(err, list){
+    List.findOne({userId: userId, status: "open"}, function(err, list){
         if(err){
             res.status(400).send({
                 message: "error"
