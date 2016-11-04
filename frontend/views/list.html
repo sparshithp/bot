@@ -2,27 +2,32 @@
     <div class="hero-image">
         <div class="hero-image-title">
             <h2>Groceries</h2>
+
             <div class="sub-title-small">{{items.length}} items in the list</div>
         </div>
         <div class="hero-image-img"><img src="images/grocery_list.jpg">
         </div>
     </div>
-    <input class="w-button add-cart-button" type="submit" ng-click="checkout()" value="Checkout" data-wait="Please wait...">
+    <input class="w-button add-cart-button" type="submit" ng-click="checkout()" value="Checkout"
+           data-wait="Please wait...">
     <ul class="list">
         <li class="list-item highlighted" data-ix="list-item">
-            <a class="w-clearfix w-inline-block">
-                <input class="title-list" style="width:85%" placeholder="Add an item" ng-model="itemToAdd"></input>
-                <div class="icon-list highlighted">
-                    <div class="icon ion-ios-checkmark-empty" ng-click="addItem()"></div>
-                </div>
-            </a>
+            <form method="post" ng-submit="addItem()" name="loginForm">
+                <a class="w-clearfix w-inline-block">
+                    <input class="title-list" style="width:85%" placeholder="Add an item" ng-model="itemToAdd"></input>
+                    <div class="icon-list highlighted">
+                        <div class="icon ion-ios-checkmark-empty" ng-click="addItem()" type="submit"></div>
+                    </div>
+                </a>
+            </form>
         </li>
         <li ng-repeat="item in items" class="list-item" data-ix="list-item">
             <a class="w-clearfix w-inline-block">
                 <div class="icon-list highlighted">
                     <div class="icon ion-ios-close-empty" ng-click="print(item._id)"></div>
                 </div>
-                <input class="title-list" style="border-width: 0; width:85%" ng-model="item.name" ng-blur="editItem(item._id, item.name)"></input>
+                <input class="title-list" style="border-width: 0; width:85%" ng-model="item.name"
+                       ng-blur="editItem(item._id, item.name)"></input>
             </a>
         </li>
     </ul>

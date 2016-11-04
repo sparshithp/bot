@@ -18,9 +18,7 @@ app.controller('ListCtrl', function ($scope, $rootScope, $auth, $state, $filter,
         $http.post(URL+'/list/addItem', {item: itemToAdd})
             .then(
                 function(response){
-                    console.log(response);
                     $scope.items = response.data.list.items;
-                    console.log($scope.items);
                     $scope.itemToAdd = null;
                 },
                 function(response){
@@ -32,7 +30,6 @@ app.controller('ListCtrl', function ($scope, $rootScope, $auth, $state, $filter,
     };
 
     $scope.print = function (itemId) {
-        console.log(itemId);
         $http.post(URL+'/list/deleteItem', {itemId: itemId})
             .then(
                 function(response){
@@ -61,8 +58,6 @@ app.controller('ListCtrl', function ($scope, $rootScope, $auth, $state, $filter,
 
     $http.get(URL + '/list/get')
         .then(function (response) {
-            console.log("to");
-            console.log(response);
                 $scope.items = response.data.list.items;
             },
             function (response) {
