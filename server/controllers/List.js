@@ -32,7 +32,16 @@ exports.get = function(req, res) {
             res.status(400).send({
                 message: "error"
             });
-        }else{
+        }else if (!list){
+            list = new List({userId: userId});
+            list.items = [];
+            list.save(function(err){
+                res.status(200).send({
+                    list: list
+                });
+            });
+        }
+        else{
             res.status(200).send({
                 list: list
             });

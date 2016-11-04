@@ -61,6 +61,8 @@ app.controller('ListCtrl', function ($scope, $rootScope, $auth, $state, $filter,
 
     $http.get(URL + '/list/get')
         .then(function (response) {
+            console.log("to");
+            console.log(response);
                 $scope.items = response.data.list.items;
             },
             function (response) {
