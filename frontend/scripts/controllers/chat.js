@@ -2,7 +2,7 @@
  * Created by sparshithp on 10/24/16.
  */
 app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $location, $anchorScroll, $stateParams, URL) {
-    $location.hash('scrollArea');
+
     var iOS = ['iPad', 'iPhone', 'iPod'].indexOf(navigator.platform) >= 0;
     //Chat block bottom padding hack fix
     $scope.chatPadding = '0%';
@@ -10,16 +10,39 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
         $scope.chatPadding = '15%';
     }
     // call $anchorScroll()
-    $anchorScroll();
+
+ //   $location.hash('scrollArea');
+ //   $anchorScroll();
+
     $rootScope.title = "Chat";
+
     $scope.chats = [];
-    console.log($stateParams);
-    if($stateParams.lastChat) {
-        $scope.chats.push({
-            response: true,
-            text: $stateParams.lastChat
-        });
-    }
+
+    $http.get(URL+'/history/get')
+        .then(
+            function(response){
+                $scope.msg = "";
+                Array.prototype.push.apply($scope.chats, response.data.chats);
+
+                if($stateParams.lastChat) {
+                    $scope.chats.push({
+                        response: true,
+                        text: $stateParams.lastChat
+                    });
+                }
+
+                $location.hash('scrollArea');
+
+                // call $anchorScroll()
+                $anchorScroll();
+            },
+            function(response){
+                // failure callback
+                console.log(response);
+            }
+        );
+
+
     $scope.sendMessage = function(){
         if(!$scope.msg || $scope.msg.trim()==""){
             $scope.msg = "";
@@ -33,7 +56,8 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
 
         // call $anchorScroll()
         $anchorScroll();
-        $http.post(URL+'/parse', {userId: 'sffsf', text: $scope.msg})
+
+        $http.post(URL+'/parse', {text: $scope.msg})
             .then(
                 function(response){
                     $scope.msg = "";

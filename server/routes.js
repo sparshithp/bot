@@ -6,8 +6,9 @@ var User = mongoose.model('User');
 var Restaurant = require('./models/restaurant');
 var userController = require('./controllers/UserController');
 var listController = require('./controllers/List');
-var nlpParser = require('./nlp/Parser');
+var parseController = require('./controllers/parse');
 var handler = require('./handlers/IntentHandler');
+var historyController = require('./controllers/History');
 
 module.exports = function (app) {
 
@@ -43,24 +44,9 @@ module.exports = function (app) {
 
     app.post('/auth/signup', userController.signup);
 
-    app.post('/parse', ensureAuthenticated, function (req, res) {
-        console.log(req.user._id);
-        var text = req.body.text;
-        var userId = req.user._id;
-        if (!text || text == "") {
-            res.status(400).send({
-                message: "No Text"
-            });
-        } else {
-            var intentWithSlots = nlpParser.parseIntent(userId, text, function(intentWithSlots){
-                var returnMsg = handler.handleIntent(intentWithSlots, userId, function(returnMsg){
-                    console.log(returnMsg);
-                    res.status(200).send(returnMsg);
-                });
-            });
+    app.post('/parse', ensureAuthenticated, parseController.parse);
 
-        }
-    });
+    app.get('/history/get', ensureAuthenticated, historyController.get);
 
     app.post('/restaurant/add',function(req, res){
         var restaurantName = req.body.resName;

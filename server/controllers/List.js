@@ -1,4 +1,5 @@
 var List = require('../models/List');
+var History = require('../models/History');
 
 exports.add = function(req, res) {
    // req.user._id ="123";
@@ -115,7 +116,7 @@ exports.editItemById = function(req, res) {
     var userId = req.user._id;
     var itemId = req.body.itemId;
     var itemName = req.body.itemName;
-    List.findOne({userId: userId, status: "open"}, function(err, list){
+    List.findOne({userId: userId}, function(err, list){
         if(err){
             res.status(400).send({
                 message: "error"
@@ -156,6 +157,7 @@ exports.checkout = function(req, res){
                 message: "You dont have a shopping list"
             });
         } else {
+            var successMsg = "Order has been placed. You will get your groceries within a couple of hours.";
             list.status = "placed";
             list.save(function(err){
                 if(err){
@@ -165,11 +167,34 @@ exports.checkout = function(req, res){
                 }else{
                     res.status(200).send({
                         success: true,
-                        message: "Order has been placed. You will get your groceries within a couple of hours."
+                        message: successMsg
                     });
+                    addCheckoutSuccessfulMessageToHistory(userId, successMsg);
                 }
             })
         }
     });
 };
+
+function addCheckoutSuccessfulMessageToHistory(userId, successMsg){
+    History.findOne({userId: userId}, function (err, history) {
+        if (err) {
+            console.log("error saving checkout message for user: " + userId);
+        }
+        if (!history) {
+            history = new History({userId: userId});
+            history.chats = [];
+        }
+        history.chats.push({
+            response: true,
+            text: successMsg
+        });
+        history.save(function(err){
+            if(err) {
+                console.log("error saving checkout message for user: " + userId);
+            }
+        });
+    });
+
+}
 
