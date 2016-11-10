@@ -1181,7 +1181,7 @@ a {
 .column-right.chat.right {
   position: relative;
   margin-right: 10px;
-  margin-left: 100px;
+  margin-left: 10px;
   padding-left: 20px;
 }
 .message-text {
