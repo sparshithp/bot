@@ -14,6 +14,8 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
  //   $location.hash('scrollArea');
  //   $anchorScroll();
 
+    $scope.imageId = "mySlides";
+
     $rootScope.title = "Chat";
 
     $scope.chats = [];
@@ -75,5 +77,7 @@ app.controller('chatCtrl', function($scope, $auth, $alert, $http, $rootScope, $l
                     console.log(response);
                 }
             );
-    }
+    };
+
+
 });
