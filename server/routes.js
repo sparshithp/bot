@@ -16,6 +16,15 @@ module.exports = function (app) {
         res.sendFile('index.html', {root: 'frontend'});
     });
 
+    app.get('/webhook', function (req, res) {
+        if (req.query['hub.verify_token'] === 'snag') {
+            console.log("Same");
+            res.send(req.query['hub.challenge'])
+        }
+        console.log("Yo Yo");
+        res.send('Error, wrong token')
+    });
+
     app.get('/api/me', ensureAuthenticated, function (req, res) {
         console.log(req.user);
         User.findById(req.user._id, function (err, user) {
