@@ -47,7 +47,7 @@ console.log('Express server listening on port ' + app.get('port'));
 // Routes
 var server = http.createServer(app);
 
-server.listen(8080);
+server.listen(80);
 console.log('Express server listening on port ' + app.get('port'));
 
 /*
