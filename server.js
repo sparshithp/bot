@@ -39,7 +39,7 @@ require('./server/routes')(app);
 https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(443);
+}, app).listen(8080);
 console.log('Express server listening on port ' + app.get('port'));
 
 /*
