@@ -35,14 +35,6 @@ if (app.get('env') === 'production') {
   });
 }
 require('./server/routes')(app);
-/*
-https.createServer({
-  key: fs.readFileSync('server-key.pem'),
-  cert: fs.readFileSync('server-crt.pem'),
-  ca: fs.readFileSync('ca-crt.pem')
-}, app).listen(8080);
-console.log('Express server listening on port ' + app.get('port'));
-*/
 
 // Routes
 var server = http.createServer(app);

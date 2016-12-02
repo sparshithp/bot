@@ -18,7 +18,7 @@
     "morgan": "~1.7.0",
     "mquery": "^2.0.0",
     "node-uber": "^0.9.7",
-    "request": "^2.75.0",
+    "request": "^2.79.0",
     "serve-favicon": "~2.3.0",
     "sockjs": "^0.3.18"
   }
